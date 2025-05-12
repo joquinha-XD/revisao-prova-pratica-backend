@@ -6,10 +6,10 @@ GET /cursos/com-muitos-comentarios?min=3
 [x] - Retorna cursos com mais de 3 comentários.
 
 GET /usuarios/:id/cursos
-[-] - Retorna os cursos em que o usuário com :id está matriculado.
+[x] - Retorna os cursos em que o usuário com :id está matriculado.
 
 GET /usuarios/com-progresso-acima?min=80
-[-] - Lista usuários com progresso acima de 80% em qualquer curso.
+[x] - Lista usuários com progresso acima de 80% em qualquer curso.
 
 GET /usuarios/:id/comentarios
 [x] - Retorna todos os comentários feitos por um usuário específico.
@@ -25,7 +25,7 @@ GET /cursos/:id/duracao-total
 [x] - Retorna a duração total das aulas do curso.
 
 GET /instrutores/:id/quantidade-cursos
-[] - Retorna o número de cursos criados pelo instrutor.
+[x] - Retorna o número de cursos criados pelo instrutor.
 
 GET /certificados/por-curso
 [] - Retorna a quantidade de certificados emitidos por curso.
