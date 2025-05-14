@@ -230,7 +230,93 @@ app.get("/instrutores/:id/quantidade-cursos", async (req, res) => {
     }
 })
 
+app.get("/certificados/por-curso", async (req, res) => {
+    try {
+        const data = await fs.readFile(database_url, 'utf-8')
+        const db = await JSON.parse(data)
+        const certificados = db.certificados
 
+        const qtdCertificadosCurso = {}
+
+        certificados.forEach((certificado) => {
+            const id = certificado.curso_id
+
+            qtdCertificadosCurso[id] = (qtdCertificadosCurso[id] || 0) + 1;
+        });
+
+
+        res.status(200).json(qtdCertificadosCurso)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({mensagem: "Internal server error"})
+    }
+})
+
+// 🧩 Transformações e Agrupamentos
+
+app.get("/usuarios/agrupados-por-tipo", async (req, res) => {
+    try {
+        const data = await fs.readFile(database_url, 'utf-8')
+        const db = await JSON.parse(data)
+        const usuarios = db.usuarios
+
+        const estudantes = usuarios.filter((usuario) => usuario.tipo === "estudante")
+        const instrutores = usuarios.filter((usuario) => usuario.tipo === "instrutor")
+
+        const qtdEstudantes = estudantes.length
+        const qtdInstrutores = instrutores.length
+
+        res.status(200).json({mensagem: `A quantidade de estudantes é: ${qtdEstudantes}; Já a quantidade de instrutores é: ${qtdInstrutores}`})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({mensagem: "Internal server error"})
+    }
+})
+
+app.get('/cursos/ordenados-por-nota', async (req, res) => {
+    try {
+        const data = await fs.readFile(database_url, 'utf-8')
+        const db = await JSON.parse(data)
+
+        const cursosOrdenados = db.cursos.map((curso) => {
+          const totalNotas = curso.comentarios.reduce((soma, comentario) => soma + comentario.nota, 0);
+          const mediaNota = totalNotas / curso.comentarios.length;
+
+          const c = {
+            id: curso.id,
+            titulo: curso.titulo,
+            descricao: curso.descricao,
+            instrutor_id: curso.instrutor_id,
+            media_nota: mediaNota
+          };
+
+          return c
+        })
+        .sort((a, b) => b.media_nota - a.media_nota);
+
+        res.status(200).json(cursosOrdenados)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({mensagem: "Internal server error"})
+    }
+});
+
+app.get("/usuarios/com-multiplos-certificados", async (req, res) => {
+    try {
+        const data = await fs.readFile(database_url, 'utf-8')
+        const db = await JSON.parse(data)
+        const alunos = db.usuarios.filter((usuario) => usuario.tipo === "estudante")
+        const certificados = db.certificados
+
+        const idUsuariosCertificados = certificados.map((certificado) => certificado.usuario_id)
+
+        res.status(200).json()
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({mensagem: "Internal server error"})
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Servidor iniciado na porta: ${PORT}`)

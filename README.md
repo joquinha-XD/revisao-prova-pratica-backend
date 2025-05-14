@@ -28,17 +28,17 @@ GET /instrutores/:id/quantidade-cursos
 [x] - Retorna o número de cursos criados pelo instrutor.
 
 GET /certificados/por-curso
-[] - Retorna a quantidade de certificados emitidos por curso.
+[x] - Retorna a quantidade de certificados emitidos por curso.
 
 # 🧩 Transformações e Agrupamentos
 GET /usuarios/agrupados-por-tipo
-[] - Agrupa usuários por tipo (estudante/instrutor) e conta quantos há de cada tipo.
+[x] - Agrupa usuários por tipo (estudante/instrutor) e conta quantos há de cada tipo.
 
 GET /cursos/ordenados-por-nota
-[] - Lista cursos ordenados pela média de notas dos comentários.
+[x] - Lista cursos ordenados pela média de notas dos comentários.
 
 GET /usuarios/com-multiplos-certificados
-[] - Lista alunos com mais de um certificado.
+[-] - Lista alunos com mais de um certificado.
 
 GET /cursos/:id/alunos-progresso-alto?min=90
 [] - Lista os alunos do curso com progresso acima de 90%.
