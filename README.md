@@ -54,10 +54,10 @@ POST /cursos
 [] - Cria um novo curso com aulas e vincula a um instrutor.
 
 POST /cursos/:id/comentarios
-[] - Adiciona um comentário a um curso.
+[x] - Adiciona um comentário a um curso.
 
 POST /certificados
 [] - Gera certificado para alunos com progresso ≥ 90%.
 
 DELETE /cursos/sem-comentarios
-[] - Remove cursos que não têm comentários.
+[x] - Remove cursos que não têm comentários.
